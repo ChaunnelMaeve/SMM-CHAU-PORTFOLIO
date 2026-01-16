@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Award, Users, TrendingUp, Target, ArrowRight, Zap } from 'lucide-react';
+import { Award, Users, TrendingUp, Target, ArrowRight, Zap, Briefcase, Calendar, MapPin, ChevronDown } from 'lucide-react';
 
 const stats = [
   { icon: Users, value: '200+', label: 'Happy Clients' },
@@ -8,9 +8,49 @@ const stats = [
   { icon: Target, value: '93%', label: 'Success Rate' },
 ];
 
+const workHistory = [
+  {
+    title: 'Senior Social Media Strategist',
+    company: 'Digital Growth Agency',
+    location: 'Remote',
+    period: '2022 - Present',
+    description: 'Leading social media campaigns for Fortune 500 clients, achieving an average 300% increase in engagement rates. Managing a team of 5 content creators and strategists.',
+    achievements: [
+      'Grew client Instagram following from 50K to 500K in 8 months',
+      'Generated $2M+ in revenue through Facebook ad campaigns',
+      'Developed viral TikTok strategy reaching 20M+ views'
+    ]
+  },
+  {
+    title: 'Social Media Manager',
+    company: 'Creative Marketing Co.',
+    location: 'New York, NY',
+    period: '2020 - 2022',
+    description: 'Managed multi-platform social media presence for 15+ e-commerce brands. Specialized in Instagram, TikTok, and LinkedIn growth strategies.',
+    achievements: [
+      'Increased average engagement rate by 250%',
+      'Launched successful influencer partnership programs',
+      'Created content strategies resulting in 10M+ impressions'
+    ]
+  },
+  {
+    title: 'Content Creator & Strategist',
+    company: 'Startup Ventures',
+    location: 'San Francisco, CA',
+    period: '2019 - 2020',
+    description: 'Built social media presence from scratch for multiple tech startups. Focused on brand storytelling and community engagement.',
+    achievements: [
+      'Established brand presence on 5 major platforms',
+      'Grew combined following to 100K+ in first year',
+      'Developed content calendar system adopted company-wide'
+    ]
+  }
+];
+
 export default function About() {
   const [isVisible, setIsVisible] = useState(false);
   const [counts, setCounts] = useState(stats.map(() => 0));
+  const [showWorkHistory, setShowWorkHistory] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -194,28 +234,144 @@ export default function About() {
                 into loyal customers and brand advocates.
               </p>
 
-              <button
-                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                className="group relative px-8 py-4 rounded-lg font-bold overflow-hidden transition-all duration-300 hover:scale-105"
-                style={{
-                  background: 'var(--gradient-1)',
-                  color: 'var(--bg-dark)',
-                  boxShadow: '0 4px 15px rgba(0, 255, 136, 0.3)',
-                }}
-                data-testid="work-together-btn"
+              <div className="flex flex-col sm:flex-row gap-4 mb-8">
+                <button
+                  onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="group relative px-8 py-4 rounded-lg font-bold overflow-hidden transition-all duration-300 hover:scale-105"
+                  style={{
+                    background: 'var(--gradient-1)',
+                    color: 'var(--bg-dark)',
+                    boxShadow: '0 4px 15px rgba(0, 255, 136, 0.3)',
+                  }}
+                  data-testid="work-together-btn"
+                >
+                  <div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                    style={{
+                      background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)',
+                      animation: 'shine 1.5s infinite',
+                    }}
+                  />
+                  <span className="relative flex items-center justify-center gap-2">
+                    Let's Work Together
+                    <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                  </span>
+                </button>
+
+                <button
+                  onClick={() => setShowWorkHistory(!showWorkHistory)}
+                  className="group relative px-8 py-4 rounded-lg font-bold transition-all duration-300 hover:scale-105"
+                  style={{
+                    background: 'transparent',
+                    color: 'var(--primary)',
+                    border: '2px solid var(--primary)',
+                  }}
+                  data-testid="work-history-btn"
+                >
+                  <span className="relative flex items-center justify-center gap-2">
+                    <Briefcase size={20} />
+                    {showWorkHistory ? 'Hide' : 'View'} Work History
+                    <ChevronDown 
+                      size={20} 
+                      className={`transition-transform duration-300 ${showWorkHistory ? 'rotate-180' : ''}`}
+                    />
+                  </span>
+                </button>
+              </div>
+
+              {/* Work History Section */}
+              <div 
+                className={`transition-all duration-500 overflow-hidden ${
+                  showWorkHistory ? 'max-h-[2000px] opacity-100 mt-8' : 'max-h-0 opacity-0'
+                }`}
               >
                 <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                  className="p-6 rounded-2xl mb-6"
                   style={{
-                    background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)',
-                    animation: 'shine 1.5s infinite',
+                    background: 'linear-gradient(135deg, rgba(0,255,136,0.05) 0%, rgba(0,212,255,0.05) 100%)',
+                    border: '2px solid var(--border)',
                   }}
-                />
-                <span className="relative flex items-center justify-center gap-2">
-                  Let's Work Together
-                  <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-                </span>
-              </button>
+                >
+                  <div className="flex items-center gap-3 mb-6">
+                    <Briefcase size={24} style={{ color: 'var(--primary)' }} />
+                    <h4 
+                      className="text-2xl font-bold"
+                      style={{
+                        color: 'var(--primary)',
+                        fontFamily: "'Orbitron', sans-serif",
+                      }}
+                    >
+                      Professional Experience
+                    </h4>
+                  </div>
+
+                  <div className="space-y-6">
+                    {workHistory.map((job, index) => (
+                      <div
+                        key={index}
+                        className="relative pl-6 pb-6 border-l-2 last:pb-0"
+                        style={{ borderColor: 'var(--border)' }}
+                        data-testid={`work-history-${index}`}
+                      >
+                        {/* Timeline dot */}
+                        <div
+                          className="absolute -left-[9px] top-0 w-4 h-4 rounded-full"
+                          style={{
+                            background: 'var(--gradient-1)',
+                            boxShadow: '0 0 10px var(--primary)',
+                          }}
+                        />
+
+                        <div className="mb-3">
+                          <h5 
+                            className="text-xl font-bold mb-2"
+                            style={{ color: 'var(--text-primary)' }}
+                          >
+                            {job.title}
+                          </h5>
+                          
+                          <div className="flex flex-wrap gap-4 text-sm mb-2" style={{ color: 'var(--text-secondary)' }}>
+                            <div className="flex items-center gap-2">
+                              <Briefcase size={16} style={{ color: 'var(--primary)' }} />
+                              <span className="font-semibold">{job.company}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <MapPin size={16} style={{ color: 'var(--primary)' }} />
+                              <span>{job.location}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Calendar size={16} style={{ color: 'var(--primary)' }} />
+                              <span>{job.period}</span>
+                            </div>
+                          </div>
+
+                          <p className="text-base mb-3 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                            {job.description}
+                          </p>
+
+                          <div className="space-y-2">
+                            <p className="text-sm font-semibold" style={{ color: 'var(--primary)' }}>
+                              Key Achievements:
+                            </p>
+                            <ul className="space-y-1">
+                              {job.achievements.map((achievement, i) => (
+                                <li 
+                                  key={i}
+                                  className="text-sm flex items-start gap-2"
+                                  style={{ color: 'var(--text-secondary)' }}
+                                >
+                                  <span style={{ color: 'var(--primary)' }}>▸</span>
+                                  <span>{achievement}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
