@@ -94,7 +94,7 @@ export default function Hero({ scrollY }: HeroProps) {
               />
               <Sparkles size={18} style={{ color: 'var(--primary)' }} className="animate-pulse" />
               <span style={{ color: 'var(--primary)', fontWeight: 700, fontSize: '0.75rem', fontFamily: "'Orbitron', sans-serif", letterSpacing: '1.5px' }}>
-                SOCIAL MEDIA SPECIALIST
+                FACEBOOK MARKETING & WEB SPECIALIST
               </span>
             </div>
 
@@ -116,15 +116,15 @@ export default function Hero({ scrollY }: HeroProps) {
             </h1>
 
             <div className="flex flex-wrap gap-3 mb-6 text-sm" style={{ fontFamily: "'Fira Code', monospace" }}>
-              <span style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>Instagram</span>
+              <span style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>Facebook</span>
               <span style={{ color: 'var(--primary)' }}>|</span>
-              <span style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>TikTok</span>
+              <span style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>Facebook Ads</span>
               <span style={{ color: 'var(--primary)' }}>|</span>
-              <span style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>LinkedIn</span>
+              <span style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>Meta Business</span>
             </div>
 
             <p className="text-lg mb-8 leading-relaxed max-w-xl" style={{ color: 'var(--text-secondary)' }}>
-              Hi, I'm Chaunnel! I help brands and businesses explode their social media presence with strategic content, engagement tactics, and proven growth strategies across all platforms.
+              Hi, I'm Chaunnel! I specialize in Facebook marketing and website creation, helping businesses grow their online presence, generate leads, and drive sales through strategic Facebook campaigns and professional web design.
             </p>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
@@ -236,7 +236,7 @@ export default function Hero({ scrollY }: HeroProps) {
                     </div>
                   </div>
 
-                  {['Instagram Growth', 'TikTok Virality', 'Community Engagement', 'Content Performance'].map((item, i) => (
+                  {['Facebook Page Growth', 'Facebook Ads ROI', 'Community Engagement', 'Website Performance'].map((item, i) => (
                     <div key={item} className="p-4 rounded-lg transition-all duration-300 hover:translate-x-2"
                       style={{
                         background: 'var(--bg-card)',
