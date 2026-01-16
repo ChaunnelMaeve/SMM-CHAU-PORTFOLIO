@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { ArrowRight, Sparkles, TrendingUp, Users, Target, Award } from 'lucide-react';
+import { ArrowRight, Sparkles, TrendingUp, Users, Target, Award, Download } from 'lucide-react';
+import { resumeData } from '../data/resumeData';
 
 interface HeroProps {
   scrollY: number;
@@ -14,11 +15,15 @@ export default function Hero({ scrollY }: HeroProps) {
   }, []);
 
   const stats = [
-    { icon: Users, value: '200+', label: 'Clients' },
-    { icon: Award, value: '5+', label: 'Years' },
-    { icon: TrendingUp, value: '50M+', label: 'Reach' },
-    { icon: Target, value: '93%', label: 'Success' },
+    { icon: Users, value: '5+', label: 'Years Exp' },
+    { icon: Award, value: '240%', label: 'Avg Growth' },
+    { icon: TrendingUp, value: '500K+', label: 'Monthly Reach' },
+    { icon: Target, value: '95%', label: 'Success Rate' },
   ];
+
+  const handleDownloadResume = () => {
+    window.print();
+  };
 
   return (
     <section
@@ -94,13 +99,12 @@ export default function Hero({ scrollY }: HeroProps) {
               />
               <Sparkles size={18} style={{ color: 'var(--primary)' }} className="animate-pulse" />
               <span style={{ color: 'var(--primary)', fontWeight: 700, fontSize: '0.75rem', fontFamily: "'Orbitron', sans-serif", letterSpacing: '1.5px' }}>
-                FACEBOOK MARKETING & WEB SPECIALIST
+                {resumeData.personalInfo.title.toUpperCase()}
               </span>
             </div>
 
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight" style={{ fontFamily: "'Orbitron', sans-serif" }}>
-              <span style={{ color: 'var(--text-primary)' }}>GROW YOUR</span>
-              <br />
+              <span style={{ color: 'var(--text-primary)' }}>Hi, I'm </span>
               <span
                 className="animate-gradient"
                 style={{
@@ -111,20 +115,24 @@ export default function Hero({ scrollY }: HeroProps) {
                   backgroundSize: '200% 200%',
                 }}
               >
-                SOCIAL PRESENCE
+                {resumeData.personalInfo.fullName.split(' ')[0].toUpperCase()}
+              </span>
+              <br />
+              <span style={{ color: 'var(--text-primary)', fontSize: '0.6em' }}>
+                {resumeData.personalInfo.tagline}
               </span>
             </h1>
 
             <div className="flex flex-wrap gap-3 mb-6 text-sm" style={{ fontFamily: "'Fira Code', monospace" }}>
-              <span style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>Facebook</span>
+              <span style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>Digital Marketing</span>
               <span style={{ color: 'var(--primary)' }}>|</span>
-              <span style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>Facebook Ads</span>
+              <span style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>Analytics</span>
               <span style={{ color: 'var(--primary)' }}>|</span>
-              <span style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>Meta Business</span>
+              <span style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>Strategy</span>
             </div>
 
             <p className="text-lg mb-8 leading-relaxed max-w-xl" style={{ color: 'var(--text-secondary)' }}>
-              Hi, I'm Chaunnel! I specialize in Facebook marketing and website creation, helping businesses grow their online presence, generate leads, and drive sales through strategic Facebook campaigns and professional web design.
+              {resumeData.professionalSummary.substring(0, 200)}...
             </p>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
@@ -173,14 +181,14 @@ export default function Hero({ scrollY }: HeroProps) {
 
             <div className="flex flex-col sm:flex-row gap-4">
               <button
-                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={handleDownloadResume}
                 className="group relative px-8 py-4 rounded-lg font-bold overflow-hidden transition-all duration-300 hover:scale-105"
                 style={{
                   background: 'var(--gradient-1)',
                   color: 'var(--bg-dark)',
                   boxShadow: '0 4px 15px rgba(0, 255, 136, 0.3)',
                 }}
-                data-testid="get-started-btn"
+                data-testid="download-resume-hero-btn"
               >
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
                   style={{
@@ -189,22 +197,25 @@ export default function Hero({ scrollY }: HeroProps) {
                   }}
                 />
                 <span className="relative flex items-center justify-center gap-2">
-                  Let's Connect
-                  <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                  <Download size={20} className="group-hover:translate-y-1 transition-transform" />
+                  Download Resume
                 </span>
               </button>
 
               <button
-                onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                 className="px-8 py-4 rounded-lg font-bold transition-all duration-300 hover:scale-105"
                 style={{
                   background: 'transparent',
                   color: 'var(--primary)',
                   border: '2px solid var(--primary)',
                 }}
-                data-testid="view-services-btn"
+                data-testid="get-started-btn"
               >
-                View Services
+                <span className="flex items-center justify-center gap-2">
+                  Let's Connect
+                  <ArrowRight size={20} />
+                </span>
               </button>
             </div>
           </div>

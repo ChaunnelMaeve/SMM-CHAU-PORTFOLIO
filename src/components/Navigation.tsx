@@ -13,7 +13,7 @@ export default function Navigation() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
 
-      const sections = ['home', 'services', 'portfolio', 'about', 'testimonials', 'contact'];
+      const sections = ['home', 'summary', 'experience', 'skills', 'education', 'services', 'portfolio', 'about', 'contact'];
       const current = sections.find(section => {
         const element = document.getElementById(section);
         if (element) {
@@ -47,7 +47,13 @@ export default function Navigation() {
     setIsMobileMenuOpen(false);
   };
 
-  const navItems = ['home', 'services', 'portfolio', 'about', 'testimonials', 'contact'];
+  const navItems = [
+    { id: 'home', label: 'Home' },
+    { id: 'experience', label: 'Experience' },
+    { id: 'skills', label: 'Skills' },
+    { id: 'portfolio', label: 'Portfolio' },
+    { id: 'contact', label: 'Contact' },
+  ];
 
   return (
     <nav
@@ -105,11 +111,11 @@ export default function Navigation() {
             <div className="hidden md:flex items-center gap-2">
               {navItems.map((item) => (
                 <button
-                  key={item}
-                  onClick={() => scrollToSection(item)}
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
                   className="relative px-4 py-2 rounded-lg transition-all duration-300 group"
                   style={{
-                    color: activeSection === item ? 'var(--primary)' : 'var(--text-secondary)',
+                    color: activeSection === item.id ? 'var(--primary)' : 'var(--text-secondary)',
                   }}
                 >
                   <div
@@ -118,10 +124,10 @@ export default function Navigation() {
                       background: 'rgba(0, 255, 136, 0.1)',
                     }}
                   />
-                  <span className="relative capitalize font-medium text-sm">
-                    {item}
+                  <span className="relative font-medium text-sm">
+                    {item.label}
                   </span>
-                  {activeSection === item && (
+                  {activeSection === item.id && (
                     <div
                       className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full"
                       style={{ background: 'var(--primary)' }}
@@ -161,16 +167,16 @@ export default function Navigation() {
             <div className="flex flex-col gap-2">
               {navItems.map((item) => (
                 <button
-                  key={item}
-                  onClick={() => scrollToSection(item)}
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
                   className="relative px-4 py-3 rounded-lg transition-all duration-300 text-left"
                   style={{
-                    background: activeSection === item ? 'rgba(0, 255, 136, 0.1)' : 'transparent',
-                    color: activeSection === item ? 'var(--primary)' : 'var(--text-secondary)',
-                    borderLeft: activeSection === item ? '3px solid var(--primary)' : '3px solid transparent',
+                    background: activeSection === item.id ? 'rgba(0, 255, 136, 0.1)' : 'transparent',
+                    color: activeSection === item.id ? 'var(--primary)' : 'var(--text-secondary)',
+                    borderLeft: activeSection === item.id ? '3px solid var(--primary)' : '3px solid transparent',
                   }}
                 >
-                  <span className="capitalize font-medium">{item}</span>
+                  <span className="font-medium">{item.label}</span>
                 </button>
               ))}
             </div>

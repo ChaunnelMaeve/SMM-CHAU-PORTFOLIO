@@ -207,3 +207,64 @@ body {
   background-size: 200% 200%;
   animation: gradient 3s ease infinite;
 }
+
+/* Print Styles for Resume Download */
+@media print {
+  @page {
+    margin: 0.5in;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  nav,
+  footer,
+  #resume-download,
+  .no-print {
+    display: none !important;
+  }
+
+  section {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+    break-after: avoid;
+    color: #000 !important;
+  }
+
+  a {
+    text-decoration: none;
+    color: #000 !important;
+  }
+
+  #home {
+    padding-top: 0 !important;
+    min-height: auto !important;
+  }
+
+  #summary,
+  #experience,
+  #skills,
+  #education {
+    background: white !important;
+  }
+
+  * {
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    border-color: #ddd !important;
+  }
+
+  .animate-gradient,
+  [style*="WebkitBackgroundClip"] {
+    -webkit-text-fill-color: #000 !important;
+    background: none !important;
+    color: #000 !important;
+  }
+}
