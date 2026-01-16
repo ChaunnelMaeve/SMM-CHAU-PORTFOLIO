@@ -23,7 +23,7 @@ export default function Hero({ scrollY }: HeroProps) {
   return (
     <section
       id="home"
-      className="min-h-screen relative flex items-center justify-center overflow-hidden pt-20"
+      className="min-h-screen relative flex items-center justify-center overflow-hidden pt-32 md:pt-28"
       style={{ background: 'var(--bg-dark)' }}
     >
       <div

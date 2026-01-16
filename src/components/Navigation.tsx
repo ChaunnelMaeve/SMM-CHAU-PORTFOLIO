@@ -52,12 +52,12 @@ export default function Navigation() {
   return (
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-500 ${
-        isScrolled ? 'py-4' : 'py-6'
+        isScrolled ? 'py-2 md:py-3' : 'py-3 md:py-4'
       }`}
     >
       <div className="container mx-auto px-6">
         <div
-          className="relative rounded-2xl px-6 py-4 backdrop-blur-xl transition-all duration-300"
+          className="relative rounded-2xl px-4 md:px-6 py-3 backdrop-blur-xl transition-all duration-300"
           style={{
             background: isScrolled
               ? 'rgba(5, 8, 16, 0.95)'
@@ -71,11 +71,11 @@ export default function Navigation() {
           <div className="flex justify-between items-center">
             <button
               onClick={() => scrollToSection('home')}
-              className="flex items-center gap-3 group transition-all duration-300"
+              className="flex items-center gap-2 md:gap-3 group transition-all duration-300"
             >
               <div className="relative">
                 <Shield
-                  size={28}
+                  size={24}
                   style={{ color: 'var(--primary)' }}
                   className="transition-transform duration-300 group-hover:rotate-12"
                 />
@@ -89,7 +89,7 @@ export default function Navigation() {
                 />
               </div>
               <span
-                className="text-2xl font-black"
+                className="text-xl md:text-2xl font-black"
                 style={{
                   fontFamily: "'Orbitron', sans-serif",
                   background: 'var(--gradient-1)',
