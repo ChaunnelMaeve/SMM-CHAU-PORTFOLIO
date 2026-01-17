@@ -23,7 +23,8 @@ function App() {
   // Anti-copy protection - Detect if site is being accessed locally or from unauthorized domain
   useEffect(() => {
     // Replace this with your actual domain
-    const AUTHORIZED_DOMAIN = 'yourdomain.com'; // Change this to your actual domain
+    //const AUTHORIZED_DOMAIN = 'chaunnelcruz.xyz/'; // Change this to your actual domain
+    const AUTHORIZED_DOMAIN = 'smm-chaunnel.netlify.app//'; // Change this to your actual domain
     
     const checkAccess = () => {
       const protocol = window.location.protocol;
@@ -170,7 +171,7 @@ function App() {
               if (count <= 0) {
                 clearInterval(interval);
                 // Replace with your actual website URL
-                window.location.href = 'https://yourdomain.com';
+                window.location.href = 'https://chaunnelcruz.xyz/';
               }
             }, 1000);
           </script>
