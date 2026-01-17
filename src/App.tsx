@@ -36,10 +36,10 @@ function App() {
       }
       
       // Check if accessed from unauthorized domain (optional - uncomment when deployed)
-      // if (hostname !== AUTHORIZED_DOMAIN && hostname !== 'localhost' && !hostname.includes('127.0.0.1')) {
-      //   redirectToOriginal();
-      //   return;
-      // }
+       if (hostname !== AUTHORIZED_DOMAIN && hostname !== 'localhost' && !hostname.includes('127.0.0.1')) {
+         redirectToOriginal();
+         return;
+      }
     };
 
     const redirectToOriginal = () => {

@@ -207,7 +207,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
 
           {/* File transfer simulation */}
           <div className="flex items-center justify-between text-xs font-mono mt-4" style={{ color: 'var(--text-secondary)' }}>
-            <span>TRANSFERRING: {Math.floor(progress * 12.8)} / 128 FILES</span>
+            <span>TRANSFERRING: {Math.floor(progress * 1.28)} / 128 FILES</span>
             <span>{(progress * 2.5).toFixed(1)} MB/s</span>
           </div>
         </div>

@@ -32,9 +32,9 @@ export default function Home() {
       <Education />
       <Services />
       <Portfolio />
-      <Testimonials />
-      <ResumeDownload />
-      <Partners />
+      {/* <Testimonials /> */}
+      {/* <ResumeDownload /> */}
+      {/* <Partners /> */}
       <Contact />
     </>
   );
