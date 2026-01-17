@@ -20,6 +20,71 @@ function App() {
     }, 500);
   };
 
+  // Block right-click and source inspection
+  useEffect(() => {
+    // Disable right-click
+    const handleContextMenu = (e: MouseEvent) => {
+      e.preventDefault();
+      return false;
+    };
+
+    // Disable keyboard shortcuts for dev tools and view source
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // F12 - Developer Tools
+      if (e.key === 'F12') {
+        e.preventDefault();
+        return false;
+      }
+      
+      // Ctrl+Shift+I - Developer Tools
+      if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+        e.preventDefault();
+        return false;
+      }
+      
+      // Ctrl+Shift+C - Inspect Element
+      if (e.ctrlKey && e.shiftKey && e.key === 'C') {
+        e.preventDefault();
+        return false;
+      }
+      
+      // Ctrl+Shift+J - Console
+      if (e.ctrlKey && e.shiftKey && e.key === 'J') {
+        e.preventDefault();
+        return false;
+      }
+      
+      // Ctrl+U - View Source
+      if (e.ctrlKey && e.key === 'u') {
+        e.preventDefault();
+        return false;
+      }
+      
+      // Ctrl+S - Save Page
+      if (e.ctrlKey && e.key === 's') {
+        e.preventDefault();
+        return false;
+      }
+    };
+
+    // Disable text selection via keyboard
+    const handleSelectStart = (e: Event) => {
+      if ((e.target as HTMLElement).tagName === 'INPUT' || 
+          (e.target as HTMLElement).tagName === 'TEXTAREA') {
+        return true;
+      }
+      // Allow selection in specific cases if needed
+    };
+
+    document.addEventListener('contextmenu', handleContextMenu);
+    document.addEventListener('keydown', handleKeyDown);
+    
+    return () => {
+      document.removeEventListener('contextmenu', handleContextMenu);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
   return (
     <>
       {loading && (
@@ -38,6 +103,10 @@ function App() {
           className={`bg-gray-900 text-white overflow-x-hidden ${showContent ? 'animate-fade-in' : 'opacity-0'}`}
           style={{
             animation: showContent ? 'fadeInUp 0.8s ease-out forwards' : 'none',
+            userSelect: 'none',
+            WebkitUserSelect: 'none',
+            MozUserSelect: 'none',
+            msUserSelect: 'none',
           }}
         >
           <Navigation />
@@ -64,6 +133,20 @@ function App() {
 
         .animate-fade-in {
           animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        * {
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+        }
+
+        input, textarea {
+          -webkit-user-select: text;
+          -moz-user-select: text;
+          -ms-user-select: text;
+          user-select: text;
         }
       `}</style>
     </>
