@@ -11,7 +11,7 @@ const categoryIcons: Record<string, any> = {
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-24 relative overflow-hidden" style={{ background: 'var(--bg-dark)' }}>
+    <section id="skills" className="py-12 md:py-16 relative overflow-hidden" style={{ background: 'var(--bg-dark)' }}>
       <div className="absolute inset-0 opacity-5">
         <div
           className="absolute inset-0"
@@ -26,9 +26,9 @@ export default function Skills() {
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6"
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-4"
               style={{
                 background: 'linear-gradient(135deg, rgba(0,255,136,0.15) 0%, rgba(0,212,255,0.15) 100%)',
                 border: '2px solid var(--primary)',
@@ -40,7 +40,7 @@ export default function Skills() {
               </span>
             </div>
 
-            <h2 className="text-4xl md:text-5xl font-black mb-4" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3" style={{ fontFamily: "'Orbitron', sans-serif" }}>
               <span style={{ color: 'var(--text-primary)' }}>Technical </span>
               <span
                 className="animate-gradient"
@@ -55,26 +55,26 @@ export default function Skills() {
                 Proficiency
               </span>
             </h2>
-            <p className="text-lg" style={{ color: 'var(--text-secondary)' }}>
+            <p className="text-base md:text-lg" style={{ color: 'var(--text-secondary)' }}>
               Expertise across marketing, analytics, design, and technical domains
             </p>
           </div>
 
-          <div className="space-y-12">
+          <div className="space-y-6">
             {resumeData.skills.map((skillCategory, categoryIndex) => {
               const IconComponent = categoryIcons[skillCategory.category] || Code;
               
               return (
                 <div
                   key={skillCategory.category}
-                  className="p-8 rounded-xl"
+                  className="p-6 rounded-xl"
                   style={{
                     background: 'linear-gradient(135deg, rgba(0,255,136,0.03) 0%, rgba(0,212,255,0.03) 100%)',
                     border: '2px solid var(--border)',
                   }}
                   data-testid={`skill-category-${skillCategory.category.toLowerCase().replace(/[^a-z0-9]/g, '-')}`}
                 >
-                  <div className="flex items-center gap-3 mb-6">
+                  <div className="flex items-center gap-3 mb-4">
                     <div className="w-10 h-10 rounded-lg flex items-center justify-center"
                       style={{
                         background: 'linear-gradient(135deg, rgba(0,255,136,0.15) 0%, rgba(0,212,255,0.15) 100%)',
@@ -83,7 +83,7 @@ export default function Skills() {
                     >
                       <IconComponent size={20} style={{ color: 'var(--primary)' }} />
                     </div>
-                    <h3 className="text-2xl font-bold"
+                    <h3 className="text-xl md:text-2xl font-bold"
                       style={{
                         background: 'var(--gradient-1)',
                         WebkitBackgroundClip: 'text',
@@ -95,29 +95,20 @@ export default function Skills() {
                     </h3>
                   </div>
 
-                  <div className="space-y-4">
-                    {skillCategory.items.map((skill, skillIndex) => (
-                      <div key={skill.name} className="group" data-testid={`skill-${skill.name.toLowerCase().replace(/[^a-z0-9]/g, '-')}`}>
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>
-                            {skill.name}
-                          </span>
-                          <span className="text-sm font-bold" style={{ color: 'var(--primary)' }}>
-                            {skill.level}%
-                          </span>
-                        </div>
-                        <div className="h-2 rounded-full overflow-hidden" style={{ background: 'var(--bg-darker)' }}>
-                          <div
-                            className="h-full rounded-full transition-all duration-1000 ease-out"
-                            style={{
-                              width: `${skill.level}%`,
-                              background: 'var(--gradient-1)',
-                              boxShadow: '0 0 10px rgba(0,255,136,0.5)',
-                              transitionDelay: `${categoryIndex * 200 + skillIndex * 100}ms`,
-                            }}
-                          />
-                        </div>
-                      </div>
+                  <div className="flex flex-wrap gap-2">
+                    {skillCategory.items.map((skill) => (
+                      <span
+                        key={skill.name}
+                        className="px-3 py-1.5 rounded-lg text-sm font-medium"
+                        style={{
+                          background: 'rgba(0,255,136,0.1)',
+                          border: '1px solid var(--border)',
+                          color: 'var(--text-primary)',
+                        }}
+                        data-testid={`skill-${skill.name.toLowerCase().replace(/[^a-z0-9]/g, '-')}`}
+                      >
+                        {skill.name}
+                      </span>
                     ))}
                   </div>
                 </div>
