@@ -20,6 +20,168 @@ function App() {
     }, 500);
   };
 
+  // Anti-copy protection - Detect if site is being accessed locally or from unauthorized domain
+  useEffect(() => {
+    // Replace this with your actual domain
+    const AUTHORIZED_DOMAIN = 'yourdomain.com'; // Change this to your actual domain
+    
+    const checkAccess = () => {
+      const protocol = window.location.protocol;
+      const hostname = window.location.hostname;
+      
+      // Check if accessed from file:// (saved website)
+      if (protocol === 'file:') {
+        redirectToOriginal();
+        return;
+      }
+      
+      // Check if accessed from unauthorized domain (optional - uncomment when deployed)
+      // if (hostname !== AUTHORIZED_DOMAIN && hostname !== 'localhost' && !hostname.includes('127.0.0.1')) {
+      //   redirectToOriginal();
+      //   return;
+      // }
+    };
+
+    const redirectToOriginal = () => {
+      // Create a full-page redirect overlay
+      document.body.innerHTML = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Redirecting...</title>
+          <style>
+            * {
+              margin: 0;
+              padding: 0;
+              box-sizing: border-box;
+            }
+            
+            body {
+              font-family: 'Courier New', monospace;
+              background: #0a0e27;
+              color: #00ff88;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              min-height: 100vh;
+              overflow: hidden;
+            }
+            
+            .container {
+              text-align: center;
+              padding: 40px;
+              max-width: 600px;
+            }
+            
+            .glitch {
+              font-size: 48px;
+              font-weight: bold;
+              text-transform: uppercase;
+              position: relative;
+              text-shadow: 0 0 10px #00ff88;
+              animation: glitch 1s linear infinite;
+            }
+            
+            @keyframes glitch {
+              2%, 64% {
+                transform: translate(2px, 0) skew(0deg);
+              }
+              4%, 60% {
+                transform: translate(-2px, 0) skew(0deg);
+              }
+              62% {
+                transform: translate(0, 0) skew(5deg); 
+              }
+            }
+            
+            .message {
+              font-size: 18px;
+              margin: 30px 0;
+              line-height: 1.6;
+              color: #00d4ff;
+            }
+            
+            .warning {
+              color: #ff0080;
+              font-size: 16px;
+              margin: 20px 0;
+            }
+            
+            .spinner {
+              border: 4px solid rgba(0, 255, 136, 0.1);
+              border-radius: 50%;
+              border-top: 4px solid #00ff88;
+              width: 50px;
+              height: 50px;
+              animation: spin 1s linear infinite;
+              margin: 30px auto;
+            }
+            
+            @keyframes spin {
+              0% { transform: rotate(0deg); }
+              100% { transform: rotate(360deg); }
+            }
+            
+            .grid {
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background-image: 
+                linear-gradient(rgba(0, 255, 136, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 136, 0.1) 1px, transparent 1px);
+              background-size: 50px 50px;
+              z-index: -1;
+              opacity: 0.3;
+            }
+            
+            .countdown {
+              font-size: 24px;
+              color: #00ff88;
+              margin: 20px 0;
+              text-shadow: 0 0 10px #00ff88;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="grid"></div>
+          <div class="container">
+            <div class="glitch">⚠️ ACCESS DENIED ⚠️</div>
+            <div class="message">
+              🚫 Unauthorized Access Detected<br>
+              This is a copied/saved version of the website.
+            </div>
+            <div class="warning">
+              ⚡ Redirecting to the official website...<br>
+              Built with ❤️ by Chaunnel
+            </div>
+            <div class="spinner"></div>
+            <div class="countdown" id="countdown">Redirecting in <span id="timer">3</span> seconds...</div>
+          </div>
+          <script>
+            let count = 3;
+            const timerElement = document.getElementById('timer');
+            const interval = setInterval(() => {
+              count--;
+              if (timerElement) timerElement.textContent = count;
+              if (count <= 0) {
+                clearInterval(interval);
+                // Replace with your actual website URL
+                window.location.href = 'https://yourdomain.com';
+              }
+            }, 1000);
+          </script>
+        </body>
+        </html>
+      `;
+    };
+
+    checkAccess();
+  }, []);
+
   // Block right-click and source inspection
   useEffect(() => {
     // Fun console message with cyberpunk theme
