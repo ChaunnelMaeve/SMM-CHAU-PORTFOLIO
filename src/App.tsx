@@ -10,10 +10,14 @@ import PortfolioDetail from './pages/PortfolioDetail';
 function App() {
   const [loading, setLoading] = useState(true);
   const [fadeOut, setFadeOut] = useState(false);
+  const [showContent, setShowContent] = useState(false);
 
   const handleLoadComplete = () => {
     setFadeOut(true);
-    setTimeout(() => setLoading(false), 500);
+    setTimeout(() => {
+      setLoading(false);
+      setShowContent(true);
+    }, 500);
   };
 
   return (
@@ -30,7 +34,12 @@ function App() {
       )}
       
       <Router>
-        <div className="bg-gray-900 text-white overflow-x-hidden">
+        <div 
+          className={`bg-gray-900 text-white overflow-x-hidden ${showContent ? 'animate-fade-in' : 'opacity-0'}`}
+          style={{
+            animation: showContent ? 'fadeInUp 0.8s ease-out forwards' : 'none',
+          }}
+        >
           <Navigation />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -40,6 +49,23 @@ function App() {
           <Footer />
         </div>
       </Router>
+
+      <style>{`
+        @keyframes fadeInUp {
+          0% {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .animate-fade-in {
+          animation: fadeInUp 0.8s ease-out forwards;
+        }
+      `}</style>
     </>
   );
 }
