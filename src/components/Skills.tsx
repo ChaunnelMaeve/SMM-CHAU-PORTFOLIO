@@ -60,7 +60,7 @@ export default function Skills() {
             </p>
           </div>
 
-          <div className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {resumeData.skills.map((skillCategory, categoryIndex) => {
               const IconComponent = categoryIcons[skillCategory.category] || Code;
               
@@ -83,7 +83,7 @@ export default function Skills() {
                     >
                       <IconComponent size={20} style={{ color: 'var(--primary)' }} />
                     </div>
-                    <h3 className="text-xl md:text-2xl font-bold"
+                    <h3 className="text-lg md:text-xl font-bold"
                       style={{
                         background: 'var(--gradient-1)',
                         WebkitBackgroundClip: 'text',
