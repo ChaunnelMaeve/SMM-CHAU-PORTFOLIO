@@ -179,7 +179,7 @@ export default function Hero({ scrollY }: HeroProps) {
               ))}
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4">
+            {/* <div className="flex flex-col sm:flex-row gap-4">
               <button
                 onClick={handleDownloadResume}
                 className="group relative px-8 py-4 rounded-lg font-bold overflow-hidden transition-all duration-300 hover:scale-105"
@@ -217,7 +217,7 @@ export default function Hero({ scrollY }: HeroProps) {
                   <ArrowRight size={20} />
                 </span>
               </button>
-            </div>
+            </div> */}
           </div>
 
           <div className={`transition-all duration-1000 delay-300 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
