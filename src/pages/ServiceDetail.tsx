@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, CheckCircle, ArrowRight, TrendingUp } from 'lucide-react';
 import { servicesData } from '../data/servicesData';
+import SEO from '../components/SEO';
+import { generateServiceSchema, generateBreadcrumbSchema } from '../utils/seo';
 
 export default function ServiceDetail() {
   const { serviceId } = useParams();
@@ -18,6 +20,10 @@ export default function ServiceDetail() {
   if (!service) {
     return (
       <div className="min-h-screen flex items-center justify-center" style={{ background: 'var(--bg-dark)' }}>
+        <SEO 
+          title="Service Not Found"
+          noindex={true}
+        />
         <div className="text-center">
           <h2 className="text-3xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>
             Service Not Found
@@ -39,8 +45,31 @@ export default function ServiceDetail() {
 
   const ServiceIcon = service.icon;
 
+  // Generate structured data
+  const serviceSchema = generateServiceSchema({
+    name: service.title,
+    description: service.longDescription,
+    url: `/services/${serviceId}`,
+  });
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Services', url: '/#services' },
+    { name: service.title, url: `/services/${serviceId}` }
+  ]);
+
+  const combinedSchema = [serviceSchema, breadcrumbSchema];
+
   return (
     <div className="min-h-screen pt-32 pb-20" style={{ background: 'var(--bg-dark)' }}>
+      <SEO
+        title={service.title}
+        description={service.description}
+        keywords={`${service.title}, digital marketing, Chaunnel Cruz, ${service.platforms?.slice(0, 5).join(', ')}`}
+        canonicalUrl={`https://chaunnelcruz.xyz/services/${serviceId}`}
+        ogType="article"
+        structuredData={combinedSchema}
+      />
       <div className="absolute inset-0 opacity-5">
         <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
           <defs>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import SEO from '../components/SEO';
 import Hero from '../components/Hero';
 import ProfessionalSummary from '../components/ProfessionalSummary';
 import Experience from '../components/Experience';
@@ -11,6 +12,7 @@ import Testimonials from '../components/Testimonials';
 import ResumeDownload from '../components/ResumeDownload';
 import Partners from '../components/Partners';
 import Contact from '../components/Contact';
+import { generateBreadcrumbSchema } from '../utils/seo';
 
 export default function Home() {
   const [scrollY, setScrollY] = useState(0);
@@ -38,8 +40,16 @@ export default function Home() {
     }
   }, [location]);
 
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: '/' }
+  ]);
+
   return (
     <>
+      <SEO 
+        canonicalUrl="https://chaunnelcruz.xyz/"
+        structuredData={breadcrumbSchema}
+      />
       <Hero scrollY={scrollY} />
       <ProfessionalSummary />
       <Experience />

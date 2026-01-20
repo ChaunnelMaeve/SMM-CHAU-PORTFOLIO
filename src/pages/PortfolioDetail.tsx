@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, CheckCircle, ArrowRight, Quote, Calendar, Building2, Briefcase } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
+import SEO from '../components/SEO';
+import { generateProjectSchema, generateBreadcrumbSchema, generateArticleSchema } from '../utils/seo';
 
 export default function PortfolioDetail() {
   const { projectId } = useParams();
@@ -28,6 +30,10 @@ export default function PortfolioDetail() {
   if (!project) {
     return (
       <div className="min-h-screen flex items-center justify-center" style={{ background: 'var(--bg-dark)' }}>
+        <SEO 
+          title="Project Not Found"
+          noindex={true}
+        />
         <div className="text-center">
           <h2 className="text-3xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>
             Project Not Found
@@ -47,8 +53,41 @@ export default function PortfolioDetail() {
     );
   }
 
+  // Generate structured data
+  const projectSchema = generateProjectSchema({
+    name: project.title,
+    description: project.overview,
+    url: `/portfolio/${projectId}`,
+    image: project.images[0],
+    keywords: [project.category, ...project.technologies],
+  });
+
+  const articleSchema = generateArticleSchema({
+    headline: project.title,
+    description: project.description,
+    image: project.images[0],
+    datePublished: '2024-01-01', // You might want to add this to your data
+  });
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Portfolio', url: '/#portfolio' },
+    { name: project.title, url: `/portfolio/${projectId}` }
+  ]);
+
+  const combinedSchema = [projectSchema, articleSchema, breadcrumbSchema];
+
   return (
     <div className="min-h-screen pt-32 pb-20" style={{ background: 'var(--bg-dark)' }}>
+      <SEO
+        title={`${project.title} - Portfolio Case Study`}
+        description={project.description}
+        keywords={`${project.title}, ${project.category}, portfolio, case study, ${project.technologies.slice(0, 5).join(', ')}, Chaunnel Cruz`}
+        canonicalUrl={`https://chaunnelcruz.xyz/portfolio/${projectId}`}
+        ogType="article"
+        ogImage={project.images[0]}
+        structuredData={combinedSchema}
+      />
       <div className="absolute inset-0 opacity-5">
         <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
           <defs>
