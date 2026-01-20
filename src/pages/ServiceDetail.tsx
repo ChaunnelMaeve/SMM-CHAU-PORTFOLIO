@@ -209,7 +209,7 @@ export default function ServiceDetail() {
               </div>
             </section>
 
-            <section
+            {/* <section
               className="p-8 rounded-2xl"
               style={{
                 background: 'linear-gradient(135deg, rgba(0,255,136,0.1) 0%, rgba(0,212,255,0.1) 100%)',
@@ -274,7 +274,7 @@ export default function ServiceDetail() {
                   ))}
                 </div>
               </div>
-            </section>
+            </section> */}
           </div>
 
           <div
