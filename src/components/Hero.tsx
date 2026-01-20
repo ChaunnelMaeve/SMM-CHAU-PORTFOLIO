@@ -134,7 +134,9 @@ export default function Hero({ scrollY }: HeroProps) {
             {/* <p className="text-lg mb-8 leading-relaxed max-w-xl" style={{ color: 'var(--text-secondary)' }}>
               {resumeData.professionalSummary.substring(0, 200)}...
             </p> */}
-
+            <p className="text-lg mb-8 leading-relaxed max-w-xl" style={{ color: 'var(--text-secondary)' }}>
+              I blend creative marketing with data-driven operations to help brands grow smarter. From strategic planning to team leadership, I deliver results backed by analytics.
+            </p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
               {stats.map((stat, index) => (
                 <div
