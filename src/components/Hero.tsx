@@ -131,9 +131,9 @@ export default function Hero({ scrollY }: HeroProps) {
               <span style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>Strategy</span>
             </div>
 
-            <p className="text-lg mb-8 leading-relaxed max-w-xl" style={{ color: 'var(--text-secondary)' }}>
+            {/* <p className="text-lg mb-8 leading-relaxed max-w-xl" style={{ color: 'var(--text-secondary)' }}>
               {resumeData.professionalSummary.substring(0, 200)}...
-            </p>
+            </p> */}
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
               {stats.map((stat, index) => (
