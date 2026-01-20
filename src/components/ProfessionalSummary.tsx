@@ -1,11 +1,12 @@
-import { Briefcase, TrendingUp, Award, Target } from 'lucide-react';
+import { Briefcase, TrendingUp, Award, Users, Rocket } from 'lucide-react';
 import { resumeData } from '../data/resumeData';
 
 export default function ProfessionalSummary() {
   const highlights = [
-    { icon: Briefcase, label: '5+ Years', sublabel: 'Experience' },
-    { icon: TrendingUp, label: '240%', sublabel: 'Avg Growth' },
-    { icon: Target, label: '500K+', sublabel: 'Monthly Reach' },
+    { icon: Briefcase, label: '3+ Years', sublabel: 'Experience' },
+    { icon: Users, label: 'Human-Centric', sublabel: '' },
+    { icon: Rocket, label: 'Scale-Ready', sublabel: '' },
+    { icon: TrendingUp, label: 'Growth-Led', sublabel: '' },
     { icon: Award, label: 'Data-Driven', sublabel: 'Strategies' },
   ];
 
@@ -58,7 +59,7 @@ export default function ProfessionalSummary() {
             {resumeData.professionalSummary}
           </p>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 mt-12">
             {highlights.map((item, index) => (
               <div
                 key={item.label}
@@ -95,9 +96,11 @@ export default function ProfessionalSummary() {
                   >
                     {item.label}
                   </div>
-                  <div className="text-xs" style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>
-                    {item.sublabel}
-                  </div>
+                  {item.sublabel && (
+                    <div className="text-xs" style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>
+                      {item.sublabel}
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
