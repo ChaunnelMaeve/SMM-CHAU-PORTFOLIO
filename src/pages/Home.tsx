@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Hero from '../components/Hero';
 import ProfessionalSummary from '../components/ProfessionalSummary';
 import Experience from '../components/Experience';
@@ -13,6 +14,7 @@ import Contact from '../components/Contact';
 
 export default function Home() {
   const [scrollY, setScrollY] = useState(0);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,6 +25,19 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    // Handle hash navigation when component mounts or location changes
+    if (location.hash) {
+      const elementId = location.hash.replace('#', '');
+      setTimeout(() => {
+        const element = document.getElementById(elementId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    }
+  }, [location]);
+
   return (
     <>
       <Hero scrollY={scrollY} />
@@ -31,7 +46,7 @@ export default function Home() {
       <Skills />
       <Education />
       <Services />
-      {/* <Portfolio /> */}
+      <Portfolio />
       {/* <Testimonials /> */}
       {/* <ResumeDownload /> */}
       {/* <Partners /> */}

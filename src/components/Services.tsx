@@ -104,7 +104,7 @@ export default function Services() {
               Services
             </span>
           </h2>
-          <p className="text-lg max-w-2xl mx-auto\" style={{ color: 'var(--text-secondary)' }}>
+          <p className="text-lg max-w-2xl mx-auto text-center" style={{ color: 'var(--text-secondary)' }}>
             Complete social media solutions tailored to your business needs
           </p>
         </div>

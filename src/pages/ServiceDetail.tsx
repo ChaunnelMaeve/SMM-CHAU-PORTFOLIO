@@ -209,7 +209,7 @@ export default function ServiceDetail() {
               </div>
             </section>
 
-            {/* <section
+            <section
               className="p-8 rounded-2xl"
               style={{
                 background: 'linear-gradient(135deg, rgba(0,255,136,0.1) 0%, rgba(0,212,255,0.1) 100%)',
@@ -274,7 +274,7 @@ export default function ServiceDetail() {
                   ))}
                 </div>
               </div>
-            </section> */}
+            </section>
           </div>
 
           <div
@@ -335,13 +335,13 @@ export default function ServiceDetail() {
 
               <button
                 onClick={() => {
-                  const contactSection = document.getElementById('contact');
-                  if (contactSection) {
-                    navigate('/', { state: { scrollTo: 'contact' } });
-                    setTimeout(() => {
-                      contactSection.scrollIntoView({ behavior: 'smooth' });
-                    }, 100);
-                  }
+                  navigate('/#contact');
+                  setTimeout(() => {
+                    const contactSection = document.getElementById('contact');
+                    if (contactSection) {
+                      contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }, 300);
                 }}
                 className="group relative w-full px-8 py-4 rounded-lg font-bold overflow-hidden transition-all duration-300 hover:scale-105"
                 style={{
@@ -349,6 +349,7 @@ export default function ServiceDetail() {
                   color: 'var(--bg-dark)',
                   boxShadow: '0 4px 15px rgba(0, 255, 136, 0.3)',
                 }}
+                data-testid="get-started-button"
               >
                 <div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
