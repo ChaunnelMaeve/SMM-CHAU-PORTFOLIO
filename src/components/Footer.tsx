@@ -18,7 +18,7 @@ export default function Footer() {
             >
               CHAUNNEL
             </div>
-            <div className="flex gap-3">
+            {/* <div className="flex gap-3">
               {[Facebook, Twitter, Instagram, Linkedin, Youtube].map((Icon, index) => (
                 <a
                   key={index}
@@ -41,7 +41,7 @@ export default function Footer() {
                   <Icon size={16} />
                 </a>
               ))}
-            </div>
+            </div> */}
           </div>
           
           <div className="text-center md:text-right text-sm" style={{ color: 'var(--text-secondary)' }}>

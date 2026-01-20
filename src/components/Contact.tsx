@@ -172,7 +172,7 @@ export default function Contact() {
         </div>
 
         <div className="max-w-6xl mx-auto">
-          <div
+          {/* <div
             className={`transition-all duration-1000 mb-16 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
             }`}
@@ -283,7 +283,7 @@ export default function Contact() {
                 </a>
               ))}
             </div>
-          </div>
+          </div> */}
 
           <div
             className={`transition-all duration-1000 delay-300 ${
