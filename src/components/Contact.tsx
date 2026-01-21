@@ -1,26 +1,26 @@
 import { useEffect, useRef, useState } from 'react';
-import { Mail, Phone, MapPin, MessageSquare, Facebook, Twitter, Instagram, Linkedin, Youtube, Video } from 'lucide-react';
+import { Mail, Phone, MapPin, MessageSquare, Facebook, Twitter, Instagram, Linkedin, Youtube, Video, Calendar } from 'lucide-react';
 
 const contactMethods = [
   {
     icon: Mail,
     title: 'Email Me',
-    value: 'hello@chaunnel.com',
+    value: 'cruzchaunnel@gmail.com',
     description: 'Send me an email anytime',
-    link: 'mailto:hello@chaunnel.com',
+    link: 'mailto:cruzchaunnel@gmail.com',
   },
   {
-    icon: Phone,
-    title: 'Call Me',
-    value: '+1 (555) 123-4567',
-    description: 'Mon-Fri from 9am to 6pm',
-    link: 'tel:+15551234567',
+    icon: Linkedin,
+    title: 'Connect on LinkedIn',
+    value: 'Let\'s Network',
+    description: 'Professional networking & opportunities',
+    link: 'https://linkedin.com/in/chaunnel',
   },
   {
     icon: MapPin,
     title: 'Location',
-    value: 'Available Remotely',
-    description: 'Working with clients worldwide',
+    value: 'Remote',
+    description: 'Available for remote collaborations worldwide',
     link: '#',
   },
 ];
