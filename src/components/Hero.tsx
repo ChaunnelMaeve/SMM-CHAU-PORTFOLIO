@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ArrowRight, Sparkles, TrendingUp, Users, Target, Award, Download } from 'lucide-react';
+import { ArrowRight, Sparkles, TrendingUp, Users, Target, Award, Download, Briefcase, Rocket } from 'lucide-react';
 import { resumeData } from '../data/resumeData';
 
 interface HeroProps {
@@ -15,10 +15,10 @@ export default function Hero({ scrollY }: HeroProps) {
   }, []);
 
   const stats = [
-    { icon: Users, value: '5+', label: 'Years Exp' },
-    { icon: Award, value: '240%', label: 'Avg Growth' },
-    { icon: TrendingUp, value: '500K+', label: 'Monthly Reach' },
-    { icon: Target, value: '95%', label: 'Success Rate' },
+    { icon: Sparkles, value: '2019', label: 'Journey Start', sublabel: 'First Marketing Role' },
+    { icon: Target, value: '4 Domains', label: 'Core Expertise', sublabel: 'Marketing • Analytics • Ops • Leadership' },
+    { icon: TrendingUp, value: '240%', label: 'Growth Impact', sublabel: 'Engagement Increase' },
+    { icon: Users, value: '500K+', label: 'Monthly Reach', sublabel: 'Audience Impressions' },
   ];
 
   const handleDownloadResume = () => {
@@ -147,6 +147,7 @@ export default function Hero({ scrollY }: HeroProps) {
                     border: '2px solid var(--border)',
                     transitionDelay: `${index * 100}ms`,
                   }}
+                  data-testid={`journey-stat-${index}`}
                 >
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
                     style={{
@@ -173,9 +174,14 @@ export default function Hero({ scrollY }: HeroProps) {
                     >
                       {stat.value}
                     </div>
-                    <div className="text-xs" style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>
+                    <div className="text-xs font-semibold mb-1" style={{ color: 'var(--text-secondary)' }}>
                       {stat.label}
                     </div>
+                    {stat.sublabel && (
+                      <div className="text-[10px] leading-tight" style={{ color: 'var(--text-secondary)', opacity: 0.7 }}>
+                        {stat.sublabel}
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}
@@ -245,33 +251,39 @@ export default function Hero({ scrollY }: HeroProps) {
                       <div className="w-3 h-3 rounded-full" style={{ background: '#51cf66' }} />
                     </div>
                     <div className="text-sm font-bold" style={{ color: 'var(--text-primary)', fontFamily: "'Fira Code', monospace" }}>
-                      GROWTH METRICS
+                      CAREER MILESTONES
                     </div>
                   </div>
 
-                  {['Facebook Page Growth', 'Facebook Ads ROI', 'Community Engagement', 'Website Performance'].map((item, i) => (
-                    <div key={item} className="p-4 rounded-lg transition-all duration-300 hover:translate-x-2"
+                  {[
+                    { year: '2019', title: 'Marketing Journey Begins', desc: 'OJT CMO - Built brand 0→5K followers', status: 'COMPLETED' },
+                    { year: '2022', title: 'Operations Mastery', desc: 'Procurement Officer - ₱5M+ budget', status: 'COMPLETED' },
+                    { year: '2023', title: 'Digital Strategist', desc: '240% growth • 500K+ reach', status: 'ACHIEVED' },
+                    { year: '2024', title: 'Multi-Domain Expert', desc: 'Marketing • Analytics • Ops • Leadership', status: 'ONGOING' }
+                  ].map((item, i) => (
+                    <div key={item.year} className="p-4 rounded-lg transition-all duration-300 hover:translate-x-2"
                       style={{
                         background: 'var(--bg-card)',
                         border: '1px solid var(--border)',
                       }}
                     >
-                      <div className="text-sm mb-2" style={{ color: 'var(--text-secondary)', fontFamily: "'Fira Code', monospace" }}>
-                        {item}
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="text-sm font-bold" style={{ color: 'var(--primary)', fontFamily: "'Fira Code', monospace" }}>
+                          {item.year}
+                        </div>
+                        <div className="text-xs font-bold px-2 py-1 rounded" style={{ 
+                          color: i === 3 ? '#ffd43b' : '#51cf66',
+                          background: i === 3 ? 'rgba(255, 212, 59, 0.1)' : 'rgba(81, 207, 102, 0.1)',
+                          border: `1px solid ${i === 3 ? '#ffd43b' : '#51cf66'}`
+                        }}>
+                          {item.status}
+                        </div>
                       </div>
-                      <div className="text-sm font-bold mb-2" style={{ color: '#51cf66' }}>
-                        OPTIMIZED
+                      <div className="text-sm font-semibold mb-1" style={{ color: 'var(--text-secondary)' }}>
+                        {item.title}
                       </div>
-                      <div className="h-2 rounded-full overflow-hidden" style={{ background: 'var(--bg-darker)' }}>
-                        <div
-                          className="h-full rounded-full"
-                          style={{
-                            width: `${85 + i * 3}%`,
-                            background: 'var(--gradient-1)',
-                            boxShadow: '0 0 10px var(--primary)',
-                            animation: 'pulse 2s ease-in-out infinite',
-                          }}
-                        />
+                      <div className="text-xs" style={{ color: 'var(--text-secondary)', opacity: 0.8 }}>
+                        {item.desc}
                       </div>
                     </div>
                   ))}
@@ -293,7 +305,7 @@ export default function Hero({ scrollY }: HeroProps) {
                     animation: `float ${4 + i}s ease-in-out infinite`,
                   }}
                 >
-                  {[<TrendingUp key="1" size={24} />, <Users key="2" size={24} />, <Target key="3" size={24} />, <Sparkles key="4" size={24} />][i]}
+                  {[<Sparkles key="1" size={24} />, <Award key="2" size={24} />, <Briefcase key="3" size={24} />, <Rocket key="4" size={24} />][i]}
                 </div>
               ))}
             </div>
