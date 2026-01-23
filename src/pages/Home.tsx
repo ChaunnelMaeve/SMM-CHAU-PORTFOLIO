@@ -8,6 +8,7 @@ import Skills from '../components/Skills';
 import Education from '../components/Education';
 import Services from '../components/Services';
 import Portfolio from '../components/Portfolio';
+import CreativeWork from '../components/CreativeWork';
 import Testimonials from '../components/Testimonials';
 import ResumeDownload from '../components/ResumeDownload';
 import Partners from '../components/Partners';
@@ -57,6 +58,7 @@ export default function Home() {
       <Education />
       <Services />
       <Portfolio />
+      <CreativeWork />
       {/* <Testimonials /> */}
       {/* <ResumeDownload /> */}
       {/* <Partners /> */}
