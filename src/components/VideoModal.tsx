@@ -53,8 +53,15 @@ export default function VideoModal({
 
       {/* Video Container */}
       <div
-        className="max-w-6xl w-full flex flex-col"
+        className="max-w-6xl w-full flex flex-col relative"
         onClick={(e) => e.stopPropagation()}
+        style={{ 
+          zIndex: 100,
+          backgroundColor: 'rgba(255, 255, 255, 0.98)',
+          padding: '20px',
+          borderRadius: '12px',
+          border: '2px solid rgba(0, 212, 255, 0.3)'
+        }}
       >
         <video
           ref={videoRef}
@@ -63,7 +70,7 @@ export default function VideoModal({
           autoPlay
           className="w-full rounded-lg"
           style={{
-            boxShadow: '0 0 60px rgba(0, 255, 136, 0.3)',
+            boxShadow: '0 0 40px rgba(0, 212, 255, 0.3)',
             maxHeight: '75vh'
           }}
           data-testid="video-player"

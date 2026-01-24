@@ -98,16 +98,25 @@ export default function ImageModal({
 
       {/* Image Container */}
       <div
-        className="max-w-6xl w-full max-h-[90vh] flex flex-col"
+        className="max-w-6xl w-full max-h-[90vh] flex flex-col relative"
         onClick={(e) => e.stopPropagation()}
+        style={{ 
+          zIndex: 100,
+          backgroundColor: 'rgba(255, 255, 255, 0.98)',
+          padding: '20px',
+          borderRadius: '12px',
+          border: '2px solid rgba(0, 255, 136, 0.3)'
+        }}
       >
         <img
           src={imageUrl}
           alt={title}
           className="w-full h-auto max-h-[75vh] object-contain rounded-lg"
           style={{
-            boxShadow: '0 0 60px rgba(0, 255, 136, 0.3)'
+            boxShadow: '0 0 40px rgba(0, 255, 136, 0.3)',
+            backgroundColor: 'transparent'
           }}
+          data-testid="modal-image"
         />
         
         {/* Info Section */}
