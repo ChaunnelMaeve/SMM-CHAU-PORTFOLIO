@@ -17,8 +17,8 @@ export const creativeWorkData: CreativeWorkItem[] = [
     type: 'design',
     title: 'Social Media Campaign',
     category: 'Social Media Graphics',
-    thumbnail: 'https://images.pexels.com/photos/607812/pexels-photo-607812.jpeg?auto=compress&cs=tinysrgb&w=800',
-    fullImage: 'https://images.pexels.com/photos/607812/pexels-photo-607812.jpeg?auto=compress&cs=tinysrgb&w=1600',
+    thumbnail: 'https://scontent.fmnl8-3.fna.fbcdn.net/v/t39.30808-6/581953088_1282853577202446_2618362965093698816_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=127cfc&_nc_ohc=sI365WEKUlwQ7kNvwHpOwzT&_nc_oc=AdltHzK_Ed-Iccv2k-RxUkzsuPux9VIzV7FHyTWzEeywIKKdoctmAzX9MXwbzm-RzaY&_nc_zt=23&_nc_ht=scontent.fmnl8-3.fna&_nc_gid=9-4_Gsf13JnFFXYmhhliDQ&oh=00_AfovGPweUvxqHhQLtKkKW2UJnraeyqsR84H7B1uezD_-gg&oe=697ADFDF',
+    fullImage: 'https://scontent.fmnl8-3.fna.fbcdn.net/v/t39.30808-6/581953088_1282853577202446_2618362965093698816_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=127cfc&_nc_ohc=sI365WEKUlwQ7kNvwHpOwzT&_nc_oc=AdltHzK_Ed-Iccv2k-RxUkzsuPux9VIzV7FHyTWzEeywIKKdoctmAzX9MXwbzm-RzaY&_nc_zt=23&_nc_ht=scontent.fmnl8-3.fna&_nc_gid=9-4_Gsf13JnFFXYmhhliDQ&oh=00_AfovGPweUvxqHhQLtKkKW2UJnraeyqsR84H7B1uezD_-gg&oe=697ADFDF',
     description: 'Instagram and Facebook promotional graphics',
     aspectRatio: '4/5'
   },
