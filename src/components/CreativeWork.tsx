@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
-import { Play } from 'lucide-react';
+import { Play, X } from 'lucide-react';
 import { creativeWorkData, CreativeWorkItem } from '../data/creativeWorkData';
-import ImageModal from './ImageModal';
 import VideoModal from './VideoModal';
 
 export default function CreativeWork() {
   const [isVisible, setIsVisible] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<CreativeWorkItem | null>(null);
-  const [selectedIndex, setSelectedIndex] = useState<number>(-1);
+  const [activeTab, setActiveTab] = useState<'designs' | 'videos'>('designs');
+  const [zoomedImage, setZoomedImage] = useState<string | null>(null);
+  const [selectedVideo, setSelectedVideo] = useState<CreativeWorkItem | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
 
   const designs = creativeWorkData.filter(item => item.type === 'design');
@@ -30,28 +30,20 @@ export default function CreativeWork() {
     return () => observer.disconnect();
   }, []);
 
-  const handleItemClick = (item: CreativeWorkItem, index: number) => {
-    setSelectedItem(item);
-    setSelectedIndex(index);
+  const handleImageClick = (imageUrl: string) => {
+    setZoomedImage(imageUrl);
   };
 
-  const handleCloseModal = () => {
-    setSelectedItem(null);
-    setSelectedIndex(-1);
+  const handleVideoClick = (item: CreativeWorkItem) => {
+    setSelectedVideo(item);
   };
 
-  const handlePrevious = () => {
-    if (selectedItem?.type === 'design' && selectedIndex > 0) {
-      setSelectedIndex(selectedIndex - 1);
-      setSelectedItem(designs[selectedIndex - 1]);
-    }
+  const handleCloseZoom = () => {
+    setZoomedImage(null);
   };
 
-  const handleNext = () => {
-    if (selectedItem?.type === 'design' && selectedIndex < designs.length - 1) {
-      setSelectedIndex(selectedIndex + 1);
-      setSelectedItem(designs[selectedIndex + 1]);
-    }
+  const handleCloseVideo = () => {
+    setSelectedVideo(null);
   };
 
   return (
@@ -59,238 +51,199 @@ export default function CreativeWork() {
       id="creative-work"
       ref={sectionRef}
       className="py-20 relative"
-      style={{ background: 'var(--bg-dark)' }}
+      style={{ backgroundColor: '#1a1a1a' }}
       data-testid="creative-work-section"
     >
-      {/* Background Effects */}
-      <div className="absolute inset-0 opacity-5">
-        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="creative-grid" x="0" y="0" width="50" height="50" patternUnits="userSpaceOnUse">
-              <path d="M0 50L50 0M0 0L50 50" stroke="rgba(0, 255, 136, 0.3)" strokeWidth="1"/>
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#creative-grid)" />
-        </svg>
-      </div>
-
       <div className="container mx-auto px-6 relative z-10">
         {/* Section Header */}
         <div
-          className={`text-center mb-16 transition-all duration-1000 ${
+          className={`text-center mb-12 transition-all duration-1000 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
-          <div className="flex items-center justify-center gap-4 mb-4">
-            <span
-              className="text-xl font-bold"
-              style={{ color: 'var(--primary)', fontFamily: "'Fira Code', monospace" }}
-            >
-              04
-            </span>
-            <div className="h-px flex-1 max-w-32" style={{ background: 'var(--gradient-1)' }} />
-          </div>
-          <h2 className="text-4xl md:text-5xl font-black mb-4" style={{ fontFamily: "'Orbitron', sans-serif" }}>
-            <span style={{ color: 'var(--text-primary)' }}>Creative </span>
-            <span
-              style={{
-                background: 'var(--gradient-1)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
-            >
-              Showcase
-            </span>
+          <h2 className="text-4xl md:text-5xl font-black mb-2" style={{ fontFamily: "'Orbitron', sans-serif", color: '#ffffff' }}>
+            Creative Showcase
           </h2>
-          <p className="text-lg max-w-2xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
-            Graphic designs and video content that bring brands to life
-          </p>
         </div>
 
-        {/* Graphic Designs Section */}
-        <div className="mb-20">
-          <h3
-            className="text-3xl font-bold mb-8 text-center"
-            style={{
-              color: 'var(--text-primary)',
-              fontFamily: "'Orbitron', sans-serif"
-            }}
+        {/* Tab Navigation - Facebook Style */}
+        <div className={`mb-8 transition-all duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+          <div className="flex gap-8 border-b" style={{ borderColor: '#3a3a3a' }}>
+            <button
+              onClick={() => setActiveTab('designs')}
+              className="pb-3 px-2 text-base font-medium transition-all relative"
+              style={{ 
+                color: activeTab === 'designs' ? '#4a9eff' : '#8a8a8a',
+                fontWeight: activeTab === 'designs' ? '600' : '400'
+              }}
+              data-testid="tab-creative-works"
+            >
+              FIESTA Community's Photos
+              {activeTab === 'designs' && (
+                <div 
+                  className="absolute bottom-0 left-0 right-0 h-1 rounded-t"
+                  style={{ backgroundColor: '#4a9eff' }}
+                />
+              )}
+            </button>
+            <button
+              onClick={() => setActiveTab('videos')}
+              className="pb-3 px-2 text-base font-medium transition-all relative"
+              style={{ 
+                color: activeTab === 'videos' ? '#4a9eff' : '#8a8a8a',
+                fontWeight: activeTab === 'videos' ? '600' : '400'
+              }}
+              data-testid="tab-videos"
+            >
+              Videos
+              {activeTab === 'videos' && (
+                <div 
+                  className="absolute bottom-0 left-0 right-0 h-1 rounded-t"
+                  style={{ backgroundColor: '#4a9eff' }}
+                />
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* Creative Works Grid - Facebook Style */}
+        {activeTab === 'designs' && (
+          <div 
+            className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 transition-all duration-700 ${
+              isVisible ? 'opacity-100' : 'opacity-0'
+            }`}
           >
-            Graphic Designs
-          </h3>
-          
-          {/* Masonry/Pinterest Layout */}
-          <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
             {designs.map((item, index) => (
               <div
                 key={item.id}
-                className={`group relative overflow-hidden rounded-xl cursor-pointer break-inside-avoid transition-all duration-700 hover:scale-105 ${
-                  isVisible ? 'opacity-100' : 'opacity-0'
-                }`}
-                style={{ transitionDelay: `${index * 100}ms` }}
-                onClick={() => handleItemClick(item, index)}
+                className="group relative overflow-hidden cursor-pointer transition-all duration-300 hover:opacity-80"
+                style={{ 
+                  borderRadius: '8px',
+                  transitionDelay: `${index * 50}ms`,
+                  aspectRatio: '1/1'
+                }}
+                onClick={() => handleImageClick(item.fullImage || item.thumbnail)}
                 data-testid={`design-item-${item.id}`}
               >
-                <div
-                  className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity z-10"
-                  style={{
-                    border: '2px solid var(--primary)',
-                    boxShadow: '0 0 30px rgba(0, 255, 136, 0.4)',
-                  }}
-                />
-
                 <img
                   src={item.thumbnail}
                   alt={item.title}
-                  className="w-full h-auto transition-transform duration-700 group-hover:scale-110"
-                  style={{ aspectRatio: item.aspectRatio || 'auto' }}
+                  className="w-full h-full object-cover"
+                  style={{ borderRadius: '8px' }}
+                />
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Videos Grid - Facebook Reels Style */}
+        {activeTab === 'videos' && (
+          <div 
+            className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 transition-all duration-700 ${
+              isVisible ? 'opacity-100' : 'opacity-0'
+            }`}
+          >
+            {videos.map((item, index) => (
+              <div
+                key={item.id}
+                className="group relative overflow-hidden cursor-pointer transition-all duration-300 hover:opacity-80"
+                style={{ 
+                  borderRadius: '8px',
+                  transitionDelay: `${index * 50}ms`,
+                  aspectRatio: '9/16'
+                }}
+                onClick={() => handleVideoClick(item)}
+                data-testid={`video-item-${item.id}`}
+              >
+                <img
+                  src={item.thumbnail}
+                  alt={item.title}
+                  className="w-full h-full object-cover"
+                  style={{ borderRadius: '8px' }}
                 />
 
+                {/* Dark Gradient Overlay */}
                 <div
-                  className="absolute inset-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+                  className="absolute inset-0"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(0, 255, 136, 0.9) 0%, rgba(0, 212, 255, 0.9) 100%)',
+                    background: 'linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 50%)',
+                    borderRadius: '8px'
                   }}
                 />
 
-                <div className="absolute inset-0 flex flex-col justify-center items-center p-6 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <h4
-                    className="text-xl font-bold mb-2 text-center"
+                {/* Play Button */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div
+                    className="w-14 h-14 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110"
                     style={{
-                      fontFamily: "'Orbitron', sans-serif",
-                      color: 'var(--bg-dark)',
+                      backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                    }}
+                  >
+                    <Play
+                      size={24}
+                      className="ml-1"
+                      style={{ color: '#000' }}
+                      fill="#000"
+                    />
+                  </div>
+                </div>
+
+                {/* Title Overlay */}
+                <div className="absolute bottom-0 left-0 right-0 p-3 z-20">
+                  <h4
+                    className="text-sm font-semibold line-clamp-2"
+                    style={{
+                      color: '#ffffff',
                     }}
                   >
                     {item.title}
                   </h4>
-                  <p
-                    className="text-sm text-center font-semibold"
-                    style={{ color: 'var(--bg-dark)' }}
-                  >
-                    {item.category}
-                  </p>
                 </div>
               </div>
             ))}
           </div>
-        </div>
-
-        {/* Videos Section */}
-        <div>
-          <h3
-            className="text-3xl font-bold mb-8 text-center"
-            style={{
-              color: 'var(--text-primary)',
-              fontFamily: "'Orbitron', sans-serif"
-            }}
-          >
-            Video Projects
-          </h3>
-          
-          {/* Video Gallery Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {videos.map((item, index) => (
-              <div
-                key={item.id}
-                className={`group relative overflow-hidden rounded-xl cursor-pointer transition-all duration-700 hover:scale-105 ${
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                }`}
-                style={{ transitionDelay: `${(designs.length + index) * 100}ms` }}
-                onClick={() => handleItemClick(item, index)}
-                data-testid={`video-item-${item.id}`}
-              >
-                <div
-                  className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity z-10"
-                  style={{
-                    border: '2px solid var(--secondary)',
-                    boxShadow: '0 0 30px rgba(0, 212, 255, 0.4)',
-                  }}
-                />
-
-                <div className="aspect-video relative">
-                  <img
-                    src={item.thumbnail}
-                    alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-
-                  <div
-                    className="absolute inset-0 transition-opacity duration-300"
-                    style={{
-                      background: 'linear-gradient(to top, rgba(5, 8, 16, 0.95) 0%, rgba(5, 8, 16, 0.4) 50%, transparent 100%)',
-                    }}
-                  />
-
-                  {/* Play Button */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div
-                      className="w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-125"
-                      style={{
-                        background: 'rgba(0, 212, 255, 0.2)',
-                        border: '2px solid var(--secondary)',
-                        backdropFilter: 'blur(10px)',
-                      }}
-                    >
-                      <Play
-                        size={32}
-                        className="ml-1"
-                        style={{ color: 'var(--secondary)' }}
-                        fill="var(--secondary)"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Info Overlay */}
-                  <div className="absolute bottom-0 left-0 right-0 p-4 z-20">
-                    <div
-                      className="inline-block px-3 py-1 rounded-full text-xs font-bold mb-2"
-                      style={{
-                        background: 'rgba(0, 212, 255, 0.2)',
-                        border: '1px solid var(--secondary)',
-                        color: 'var(--secondary)',
-                        fontFamily: "'Fira Code', monospace",
-                      }}
-                    >
-                      {item.category}
-                    </div>
-                    <h4
-                      className="text-lg font-bold"
-                      style={{
-                        fontFamily: "'Orbitron', sans-serif",
-                        color: 'var(--text-primary)',
-                      }}
-                    >
-                      {item.title}
-                    </h4>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        )}
       </div>
 
-      {/* Modals */}
-      {selectedItem && selectedItem.type === 'design' && (
-        <ImageModal
-          imageUrl={selectedItem.fullImage || selectedItem.thumbnail}
-          title={selectedItem.title}
-          description={selectedItem.description}
-          onClose={handleCloseModal}
-          onPrevious={handlePrevious}
-          onNext={handleNext}
-          hasPrevious={selectedIndex > 0}
-          hasNext={selectedIndex < designs.length - 1}
-        />
+      {/* Image Zoom Overlay */}
+      {zoomedImage && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 cursor-zoom-out"
+          style={{ backgroundColor: 'rgba(0, 0, 0, 0.95)' }}
+          onClick={handleCloseZoom}
+          data-testid="image-zoom-overlay"
+        >
+          {/* Close Button */}
+          <button
+            onClick={handleCloseZoom}
+            className="absolute top-4 right-4 z-50 p-2 rounded-lg transition-all hover:scale-110"
+            style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              color: '#ffffff'
+            }}
+            data-testid="close-zoom-btn"
+          >
+            <X size={24} />
+          </button>
+
+          {/* Zoomed Image */}
+          <img
+            src={zoomedImage}
+            alt="Zoomed view"
+            className="max-w-full max-h-[90vh] object-contain cursor-zoom-out"
+            onClick={handleCloseZoom}
+            data-testid="zoomed-image"
+          />
+        </div>
       )}
 
-      {selectedItem && selectedItem.type === 'video' && (
+      {/* Video Modal */}
+      {selectedVideo && (
         <VideoModal
-          videoUrl={selectedItem.videoUrl || ''}
-          title={selectedItem.title}
-          description={selectedItem.description}
-          onClose={handleCloseModal}
+          videoUrl={selectedVideo.videoUrl || ''}
+          title={selectedVideo.title}
+          description={selectedVideo.description}
+          onClose={handleCloseVideo}
         />
       )}
     </section>
